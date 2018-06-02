@@ -1,0 +1,4 @@
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\bin\Debug\APISample.Data.dll
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\bin\Debug\APISample.Data.pdb
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\obj\Debug\APISample.Data.dll
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\obj\Debug\APISample.Data.pdb

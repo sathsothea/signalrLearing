@@ -1,0 +1,97 @@
+﻿@model APISample.User[]
+@{
+    ViewBag.Title = "Home Page";
+}
+<title>SignalR Simple Chat</title>
+<style type="text/css">
+    .container {
+        background-color: #99CCFF;
+        border: thick solid #808080;
+        padding: 20px;
+        margin: 20px;
+    }
+</style>
+
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>@user.Name </li><br />
+    }
+</ul>
+
+<div class="container">
+    <input type="button" id="heartbeat" value="Heartbeat" />
+    <input type="hidden" id="displayname" />
+
+    <input type="button" id="sendHelloObject" value="sendHelloObject" />
+    <input type="hidden" id="displayname" />
+
+    <input type="text" id="message" />
+    <input type="button" id="sendmessage" value="AddMessage" />
+    <input type="hidden" id="displayname" />
+</div>
+<div class="container">
+
+    <ul id="discussion"></ul>
+</div>
+
+@section scripts{
+        <script src="http://www.useapi.com/Scripts/jquery.signalR-2.2.3.js"></script>
+        <script src="http://www.useapi.com/signalr/hubs"></script>
+    <script>
+        $(document).ready(function ()
+        {
+            $.connection.hub.url = "http://www.useapi.com/signalr";
+
+            // Declare a proxy to reference the hub.
+            var chat = $.connection.sampleHub;
+
+            // Create a function that the hub can call to broadcast messages.
+            chat.client.displayTime = function () {
+                // Html encode display name and message.
+                var encodedName = $('<div />').text("Sothea").html();
+                var encodedMsg = $('<div />').text("Hello").html();
+                // Add the message to the page.
+                $('#discussion').append('<li><strong>Recieved addMessage' + encodedName
+                    + '</strong>&nbsp;&nbsp;' + encodedMsg + '</li>');
+            };
+
+            chat.client.chating = function (text)
+            {
+                $('#discussion').append('<li><strong>Recieved addMessage ' + text);
+            }
+
+            chat.client.sendHelloObject = function (hello) {
+                // Html encode display name and message.
+                var encodedName = $('<div />').text(hello.Molly).html();
+                var encodedMsg = $('<div />').text(hello.Age).html();
+                // Add the message to the page.
+                $('#discussion').append('<li><strong>Recieved sendHelloObject:' + encodedName + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+            };
+
+            chat.client.heartbeat = function () {
+                // Html encode display name and message.
+                var encodedName = $('<div />').text("heartbeat").html();
+
+                // Add the message to the page.
+                $('#discussion').append('<li><strong>Recieved ' + encodedName + '</strong></li>');
+            };
+
+            // Get the user name and store it to prepend to messages.
+            $('#displayname').val(prompt('Enter your name:', ''));
+            // Set initial focus to message input box.
+            $('#message').focus();
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    // Call the Send method on the hub.
+                    chat.server.addMessage($('#displayname').val(), $('#message').val());
+                    // Clear text box and reset focus for next comment.
+                    $('#message').val('').focus();
+                });
+
+               
+            });
+        })
+    </script>
+}

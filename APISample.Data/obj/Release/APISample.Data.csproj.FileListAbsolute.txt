@@ -1,0 +1,5 @@
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\bin\Release\APISample.Data.dll
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\bin\Release\APISample.Data.pdb
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\obj\Release\APISample.Data.csprojResolveAssemblyReference.cache
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\obj\Release\APISample.Data.dll
+C:\Users\sot.sat\Desktop\APISample\APISample.Data\obj\Release\APISample.Data.pdb
